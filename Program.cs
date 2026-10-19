@@ -23,4 +23,12 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<WebApiUmg.Data.ApplicationDbContext>();
+    context.Database.EnsureCreated();
+}
+
+app.Run();
+
 app.Run();
